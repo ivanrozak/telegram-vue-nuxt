@@ -1,7 +1,8 @@
 export default {
   server: {
-    port: 3010 // default: 3000
+    port: 3000 // default: 3000
   },
+  terget: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Chat-client',
@@ -22,6 +23,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/axios',
+    '~/plugins/lodash'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -34,6 +37,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv'
   ],
   tailwindcss: {
     // Options
@@ -45,10 +49,21 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    'nuxt-socket-io',
+    'bootstrap-vue/nuxt'
   ],
+  io: {
+    // module options
+    sockets: [{
+      name: 'main',
+      url: 'http://localhost:3001'
+    }]
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:3300'
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -59,5 +74,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  publicRuntimeConfig: {
+    baseURL: 'http://localhost:3300',
+  },
+  privateRuntimeConfig: {
+
   }
 }
